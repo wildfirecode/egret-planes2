@@ -1,3 +1,5 @@
+export const cloneBitmap = (bitmap: egret.Bitmap) => new egret.Bitmap(bitmap.texture);
+
 export const loadImage = (url: string | string[]) => {
     if (!Array.isArray(url)) {
         return loadOneImage(url);
@@ -6,7 +8,7 @@ export const loadImage = (url: string | string[]) => {
     return Promise.all(loaders);
 }
 
-export const loadOneImage = (url) => {
+const loadOneImage = (url) => {
     return new Promise((resolve: (value: egret.Bitmap) => void, reject) => {
         const onImageLoaded = (e: egret.Event) => {
             const imageLoader: egret.ImageLoader = e.currentTarget;

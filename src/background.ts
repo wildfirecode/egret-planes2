@@ -1,4 +1,5 @@
-export default class Background {
+import IOnTick from "./IOnTick";
+export default class Background implements IOnTick {
     _bg: egret.Bitmap;
     _bg2: egret.Bitmap;
     constructor(bg: egret.Bitmap, bg2: egret.Bitmap) {
