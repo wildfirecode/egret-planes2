@@ -23,7 +23,7 @@ class EnemyAI extends egret.EventDispatcher implements IOnTick {
     }
 
     onTick() {
-        this._image.y += 8;
+        this._image.y += 5;
         if (this._image.y > this._image.stage.stageHeight) {
             this.dispatchEvent(new egret.Event('onEnemyDisappear'));
         }
