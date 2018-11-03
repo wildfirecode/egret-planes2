@@ -1,4 +1,4 @@
-export const cloneBitmap = (bitmap: egret.Bitmap) => new egret.Bitmap(bitmap.texture);
+export const cloneImage = (bitmap: egret.Bitmap) => new egret.Bitmap(bitmap.texture);
 
 export const loadImage = (url: string | string[]) => {
     if (!Array.isArray(url)) {

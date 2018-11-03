@@ -1,4 +1,4 @@
-import { cloneBitmap, loadImage } from "./assetUtil";
+import { cloneImage, loadImage } from "./assetUtil";
 import Background from "./Background";
 import Enemy from "./enemy/Enemy";
 import IOnTick from "./IOnTick";
@@ -30,10 +30,10 @@ class Main extends egret.DisplayObjectContainer {
         egret.startTick(this.onTick, this);
     }
 
-    async createGame() {
+    createGame() {
         const [bg, hero, enemy] = this._bitmaps;
         this.addChild(bg);
-        const bg2 = cloneBitmap(bg);
+        const bg2 = cloneImage(bg);
         this.addChild(bg2);
         this.addChild(hero);
 
@@ -49,27 +49,27 @@ class Main extends egret.DisplayObjectContainer {
 
         this._IOnTicks.push(background);
 
-        this.addEnemy();
+        setInterval(() => this.addEnemy(), 1000)
     }
 
     addEnemy() {
-        const enemy = cloneBitmap(this._enemyTemplate);
-        this.addChild(enemy);
-        this.centerAnchor(enemy);
-        const enemyCtrl = new Enemy(enemy);
-        enemyCtrl.AI.once('onEnemyDisappear', this.onEnemyDisappear, this);
-        this._IOnTicks.push(enemyCtrl);
+        const enemyImage = cloneImage(this._enemyTemplate);
+        this.addChild(enemyImage);
+        this.centerAnchor(enemyImage);
+        const enemy = new Enemy(enemyImage);
+        enemy.AI.once('onEnemyDisappear', this.onEnemyDisappear, this);
+        this._IOnTicks.push(enemy.AI);
     }
 
-    removeEnemy(enemyCtrl: Enemy) {
-        const index = this._IOnTicks.indexOf(enemyCtrl);
+    removeEnemy(enemyAI: EnemyAI) {
+        const index = this._IOnTicks.indexOf(enemyAI);
         this._IOnTicks.splice(index, 1);
     }
 
     onEnemyDisappear(e: egret.Event) {
         const AI = e.currentTarget as EnemyAI;
         AI.enemy.destroy();
-        this.removeEnemy(AI.enemy);
+        this.removeEnemy(AI);
     }
 
     onTick() {

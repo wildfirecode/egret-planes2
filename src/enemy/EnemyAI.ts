@@ -1,6 +1,7 @@
 import Enemy from "./Enemy";
+import IOnTick from "../IOnTick";
 
-class EnemyAI extends egret.EventDispatcher {
+class EnemyAI extends egret.EventDispatcher implements IOnTick {
     enemy: Enemy;
     _image: egret.Bitmap;
     initialX: number;
